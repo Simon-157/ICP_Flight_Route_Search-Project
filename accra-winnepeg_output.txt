@@ -1,3 +1,3 @@
-WS from YWG to YYC 0 stops
-AC from YYC to FRA 0 stops
-LH from FRA to ACC 0 stops
+AZ from ACC to FCO 0 stops
+AY from FCO to ORD 0 stops
+AC from ORD to YWG 0 stops

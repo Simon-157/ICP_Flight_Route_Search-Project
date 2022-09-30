@@ -18,13 +18,16 @@ public class Vertex implements Comparable<Vertex> {
         this.currentVertex = curVertex;
         this.previous = prev;
         this.route = route;
-        this.distance = distance;
+        this.distance = 0.0;
         // this.clear();
     }
 
     public Vertex(Airport startAirport) {
         this.currentVertex = startAirport;
         this.previous = null;
+    }
+
+    public Vertex(Airport airport, Vertex node, Route route2) {
     }
 
     public Airport getCurrentVertex() {
@@ -39,8 +42,8 @@ public class Vertex implements Comparable<Vertex> {
         return this.distance;
     }
 
-    public void setDistance() {
-        this.distance = this.route.getRoutecost();
+    public void setDistance(double dist) {
+        this.distance = dist;
     }
 
     /**
