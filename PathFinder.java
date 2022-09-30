@@ -181,20 +181,14 @@ public class PathFinder {
         Airport startAirport = getStartEndAirport()[0];
         Airport endAirport = getStartEndAirport()[1];
         Vertex node = new Vertex(startAirport, null, null, 0);
-        // if (startAirport.getCity().equals(endAirport.getCity())) {
-        // System.out.println("Found solution !!");
-        // return node;
-        // }
-
-        PriorityQueue<Vertex> frontier = new PriorityQueue<Vertex>();
+     
+        PriorityQueue<Vertex> frontier = new PriorityQueue<Vertex>(new VertexComparator());
         frontier.add(node);
-        // System.out.println("frontier, " + frontier);
         Set<Vertex> explored = new HashSet<Vertex>();
 
         while (!frontier.isEmpty()) {
             node = frontier.poll();
-            // System.out.println("Popped: " + node);
-
+           
             if (node.getCurrentVertex().getCity().equals(endAirport.getCity())) {
                 System.out.println("Found solution !!");
                 node.getPathToDestination();
