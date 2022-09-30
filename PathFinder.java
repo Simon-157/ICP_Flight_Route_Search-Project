@@ -178,6 +178,17 @@ public class PathFinder {
 
     }
 
+   /**
+    * The function takes in two sets of coordinates (latitude and longitude) and returns the distance
+    * between them in miles
+    * 
+    * @param lat1 Latitude of point 1 (in decimal degrees)
+    * @param lon1 longitude of the first point
+    * @param lat2 latitude of the second point
+    * @param lon2 longitude of the destination
+    * @param unit The unit you desire for results.
+    * @return The distance between two points.
+    */
     private double calcDistance(double lat1, double lon1, double lat2, double lon2, char unit) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
@@ -193,10 +204,23 @@ public class PathFinder {
         return (dist);
     }
 
+   
+    /**
+     * Convert degrees to radians
+     * 
+     * @param deg The degree of the angle
+     * @return The distance between two points on the Earth.
+     */
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0);
     }
 
+   /**
+    * Converts radians to degrees.
+    * 
+    * @param rad The radian value to be converted to degrees.
+    * @return The distance between two points on the Earth.
+    */
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
