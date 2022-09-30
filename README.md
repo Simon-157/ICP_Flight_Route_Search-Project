@@ -4,6 +4,32 @@
 This is a project that takes in a start position on the any part of the earth geographical area and searches for an optimal path to a given destination in the globe through flight
 
 
+## Running Tests/Demo
+
+To run tests, run the following command, 
+* Change the parameter of the constructor of the test1 object to the name
+the file of the input file.
+* Make sure the Input file is present in the current directory, i.e cd flight-route-finding
+
+```bash
+     public static void main(String[] args) {
+        PathFinder test1 = new PathFinder("accra-winnepeg.txt");
+        test1.readInputFile();
+        try {
+            test1.getStartEndAirport();
+            // test1.optimalPathSearchByAstar();
+            test1.breadthFirstSearch();
+            // writeOutputPathToFile(test1.inputFile);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+```
+
+
+
 ## Run Locally
 
 Clone the project
