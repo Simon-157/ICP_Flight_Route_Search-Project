@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class Vertex implements Comparable<Vertex> {
+public class Vertex{
     /** The vertex itself. */
     private Airport currentVertex;
     private Vertex previous;
     private Route route;
     private double distance;
 
-    public Vertex(Airport curVertex, Vertex prev, Route route, double distance) throws NullPointerException {
+    public Vertex(Airport curVertex, Vertex prev, Route route) throws NullPointerException {
         // if (curVertex == null) {
         // throw new NullPointerException("Argument must not be null");
         // }
@@ -27,8 +27,6 @@ public class Vertex implements Comparable<Vertex> {
         this.previous = null;
     }
 
-    public Vertex(Airport airport, Vertex node, Route route2) {
-    }
 
     public Airport getCurrentVertex() {
         return this.currentVertex;
@@ -55,16 +53,13 @@ public class Vertex implements Comparable<Vertex> {
      */
     public Deque<Route> getPathToDestination() {
         Deque<Route> deque = new LinkedList<>();
-        Vertex CurrentVertex = new Vertex(this.currentVertex, this.previous, this.route, this.distance);
-        while (CurrentVertex.previous != null) {
+        Vertex CurrentVertex = new Vertex(this.currentVertex, this.previous, this.route);
+        // CurrentVertex.setDistance();
+        while (CurrentVertex != null) {
             deque.addFirst((CurrentVertex.route));
             CurrentVertex = CurrentVertex.previous;
         }
-        deque.addFirst(CurrentVertex.route);
-        for (Route route : deque) {
-            System.out.println(route);
-            System.out.println();
-        }
+        // deque.addFirst(CurrentVertex.route);
         return deque;
     }
 
@@ -75,7 +70,7 @@ public class Vertex implements Comparable<Vertex> {
      */
     public void writeOutputPathToFile(String inputFileName) throws IOException {
 
-        String outPutFileName = String.format("C:/Users/simon/Desktop/flight-route-finding/%s_output.txt",
+        String outPutFileName = String.format("%s_output.txt",
                 inputFileName);
 
         BufferedWriter f_writer = new BufferedWriter(new FileWriter(outPutFileName));
@@ -84,23 +79,24 @@ public class Vertex implements Comparable<Vertex> {
 
             try {
                 f_writer.write(route.toString() + "\n");
+                
+
             } catch (NullPointerException n) {
                 n.getMessage();
 
             } finally {
                 System.out.println("a route is null");
             }
+            
         }
+        f_writer.write("Total Flights: " + (this.getPathToDestination().size()-1) + "\n");
+        f_writer.write("Total additional stops: "  + this.route.getStops());
         // System.out.print(text);
-        System.out.print(
+         System.out.print(
                 "File is created successfully with the content.");
         f_writer.close();
     }
 
-    public void clear() {
-        this.previous = null;
-        this.distance = RouteGraph.MAX_DISTANCE;
-    }
 
     /**
      * The function returns a string that contains the IATA code of the current
@@ -114,32 +110,12 @@ public class Vertex implements Comparable<Vertex> {
     public String toString() {
         String result = this.currentVertex.getIATACdode();
         if (this.previous != null) {
-            result += "previous=" + this.previous;
+            result += " previous= " + this.previous;
         }
-        if (this.distance < RouteGraph.MAX_DISTANCE) {
-            result += "distance=" + this.distance;
-        }
+        result += " distance= " + this.distance;
+        
 
         return result + this.currentVertex.getAirportName();
     }
 
-    /**
-     * It compares the distance of the current vertex to the distance of the vertex
-     * passed in as a
-     * parameter.
-     * 
-     * @param o The vertex to compare to
-     * @return The distance between the two vertices.
-     */
-    @Override
-    public int compareTo(Vertex o) {
-        if (this.distance < o.distance) {
-            return -1;
-        }
-
-        else if (this.distance > o.distance) {
-            return 1;
-        }
-        return 0;
-    }
 }

@@ -3144,7 +3144,7 @@
 3337,Launceston Airport,Launceston,Australia,LST,YMLT,-41.54529953,147.2140045,562,10,O,Australia/Melbourne,airport,OurAirports
 3338,Melbourne Moorabbin Airport,Melbourne,Australia,MBW,YMMB,-37.97579956,145.102005,50,10,O,Australia/Hobart,airport,OurAirports
 3339,Melbourne International Airport,Melbourne,Australia,MEL,YMML,-37.673302,144.843002,434,10,O,Australia/Hobart,airport,OurAirports
-3340,"RAAF Williams, Point Cook Base",Point Cook,Australia,\N,YMPC,-37.932201,144.753006,14,10,O,Australia/Hobart,airport,OurAirports
+3340,"RAAF Williams Point Cook Base",Point Cook,Australia,\N,YMPC,-37.932201,144.753006,14,10,O,Australia/Hobart,airport,OurAirports
 3341,Adelaide International Airport,Adelaide,Australia,ADL,YPAD,-34.945,138.531006,20,9.5,O,Australia/Adelaide,airport,OurAirports
 3343,RAAF Base Edinburgh,Edinburgh,Australia,\N,YPED,-34.70249939,138.6210022,67,9.5,O,Australia/Adelaide,airport,OurAirports
 3344,Perth Jandakot Airport,Perth,Australia,JAD,YPJT,-32.09749985,115.8809967,99,8,O,Australia/Perth,airport,OurAirports
@@ -4541,7 +4541,7 @@
 5878,Savusavu Airport,Savusavu,Fiji,SVU,NFNS,-16.80279922,179.3410034,17,12,U,Pacific/Fiji,airport,OurAirports
 5879,Kaufana Airport,Eua Island,Tonga,EUA,NFTE,-21.37829971,-174.9579926,325,13,U,Pacific/Tongatapu,airport,OurAirports
 5880,Lifuka Island Airport,Lifuka,Tonga,HPA,NFTL,-19.77700043,-174.3410034,31,13,U,Pacific/Tongatapu,airport,OurAirports
-5881,Mata'aho Airport,"Angaha, Niuafo'ou Island",Tonga,NFO,NFTO,-15.57079983,-175.6329956,160,13,U,Pacific/Tongatapu,airport,OurAirports
+5881,Mata'aho Airport,"Angaha Niuafo'ou Island",Tonga,NFO,NFTO,-15.57079983,-175.6329956,160,13,U,Pacific/Tongatapu,airport,OurAirports
 5882,Kuini Lavenia Airport,Niuatoputapu,Tonga,NTT,NFTP,-15.977297,-173.791089,30,13,U,Pacific/Tongatapu,airport,OurAirports
 5883,Vanua Balavu Airport,Vanua Balavu,Fiji,VBV,NFVB,-17.2689991,-178.9759979,76,12,U,Pacific/Fiji,airport,OurAirports
 5884,Niue International Airport,Alofi,Niue,IUE,NIUE,-19.07903099,-169.9255981,209,-11,U,Pacific/Niue,airport,OurAirports
