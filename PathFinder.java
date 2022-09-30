@@ -83,7 +83,7 @@ public class PathFinder {
                 destinationAirport = new Airport(data[0], data[1], data[2], data[3], data[4], data[5],
                         Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]));
 
-                routeSearcher.destinationTest(destinationAirport);
+                routeSearcher.setDestinationAirport(destinationAirport);
             }
 
         }
@@ -180,13 +180,12 @@ public class PathFinder {
 
     public Vertex optimalPathSearchByAstar() throws IOException {
 
-       
         // Creating a new imaginary route object and then calling the calRouteCost
         // method on it to get the overall distance between the start city and the
         // destination city for pre distance estiation for Astar search.
         Route mainRoute = new Route(this.routeSearcher.getHomeAirport(), this.routeSearcher.getDestinationAirport());
-        mainRoute.calRouteCost();
-        
+        this.routeSearcher.setTotalSearchDistance(mainRoute.calRouteCost());
+
         Airport endAirport = this.routeSearcher.getDestinationAirport();
         Vertex node = new Vertex(this.routeSearcher.getHomeAirport(), null, null, 0);
 
@@ -196,7 +195,7 @@ public class PathFinder {
 
         while (!frontier.isEmpty()) {
             node = frontier.poll();
-
+            System.out.println(node.getDistance());
             if (node.getCurrentVertex().getCity().equals(endAirport.getCity())) {
                 System.out.println("Found solution !!");
                 node.getPathToDestination();
@@ -211,7 +210,7 @@ public class PathFinder {
             for (Route route : results.keySet()) {
 
                 Vertex neighbor = new Vertex(results.get(route), node, route,
-                        node.getDistance() + route.getRoutecost() + mainRoute.getRoutecost());
+                        node.getDistance() + route.getRoutecost() + this.routeSearcher.getTotalSearchDistance());
 
                 if (neighbor.getCurrentVertex() != null && !explored.contains(neighbor)
                         && !frontier.contains(neighbor)) {
@@ -282,7 +281,7 @@ public class PathFinder {
         test1.readInputFile();
         try {
             test1.getStartEndAirport();
-            // test1.uniformDistanceSearch();
+            test1.optimalPathSearchByAstar();
             test1.breadthFirstSearch();
             // writeOutputPathToFile(test1.inputFile);
         } catch (IOException e) {

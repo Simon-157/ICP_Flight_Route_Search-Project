@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * // Java
  * public class FlightRouteSearcher {
@@ -18,10 +16,10 @@ public class FlightRouteSearcher {
 
     // A constructor.
     public FlightRouteSearcher() {
-        this.startCity = "";
-        this.startCountry = "";
-        this.endCountry = "";
-        this.endCity = "";
+        this.startCity = null;
+        this.startCountry = null;
+        this.endCountry = null;
+        this.endCity = null;
         this.homeAirport = null;
         destinationAirport = null;
     }
