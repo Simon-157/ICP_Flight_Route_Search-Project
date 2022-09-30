@@ -12,7 +12,9 @@ public class FlightRouteSearcher {
     private String endCity;
     private String endCountry;
     private Airport homeAirport;
-    private ArrayList<Route> routesToDestination;
+    private Airport destinationAirport;
+    private double totalSearchDistance;
+
 
     // A constructor.
     public FlightRouteSearcher() {
@@ -20,8 +22,8 @@ public class FlightRouteSearcher {
         this.startCountry = "";
         this.endCountry = "";
         this.endCity = "";
-        this.routesToDestination = new ArrayList<Route>();
-        this.homeAirport = new Airport(startCity, startCountry);
+        this.homeAirport = null;
+        destinationAirport = null;
     }
 
     public String getStartCity() {
@@ -67,13 +69,23 @@ public class FlightRouteSearcher {
     }
 
 
-    public ArrayList<Route> getRoutesToDestination() {
-        return this.routesToDestination;
+    public Airport getDestinationAirport() {
+        return this.destinationAirport;
     }
 
-    public void setRoutesToDestination(ArrayList<Route> routesToDestination) {
-        this.routesToDestination = routesToDestination;
+    public void setDestinationAirport(Airport destinationAirport) {
+        this.destinationAirport = destinationAirport;
     }
+
+
+    public double getTotalSearchDistance() {
+        return this.totalSearchDistance;
+    }
+
+    public void setTotalSearchDistance(double totalSearchDistance) {
+        this.totalSearchDistance = totalSearchDistance;
+    }
+ 
 
 
     public boolean destinationTest(Airport destination) {

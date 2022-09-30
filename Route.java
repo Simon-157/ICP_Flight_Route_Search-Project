@@ -15,6 +15,14 @@ public class Route {
     private Airport destination;
     private double routecost;
 
+
+
+
+    public Route(Airport src, Airport dest){
+        this.source = src;
+        this.destination = dest;
+    }
+
     // A constructor.
     public Route(String airlineCode, String airlineId, String sourceAirport, String sourceAirportId,
             String destinationAirport, String destinationAirportId, String codeShare, String stops) {
@@ -30,6 +38,8 @@ public class Route {
         this.destination = null;
 
     }
+
+    
 
     /**
      * The function takes the source and destination coordinates of a route and

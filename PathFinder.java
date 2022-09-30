@@ -52,7 +52,6 @@ public class PathFinder {
 
     }
 
-
     /**
      * It reads a csv file and returns an array of two objects of type Airport
      * 
@@ -74,6 +73,8 @@ public class PathFinder {
                 // System.out.println("hit");
                 startAirport = new Airport(data[0], data[1], data[2], data[3], data[4], data[5],
                         Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]));
+
+                routeSearcher.setHomeAirport(startAirport);
             }
 
             if (data[2].trim().equals(this.routeSearcher.getEndCity())
@@ -81,6 +82,8 @@ public class PathFinder {
                 // System.out.println("hit");
                 destinationAirport = new Airport(data[0], data[1], data[2], data[3], data[4], data[5],
                         Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]));
+
+                routeSearcher.destinationTest(destinationAirport);
             }
 
         }
@@ -91,13 +94,12 @@ public class PathFinder {
         return startEndDetails;
     }
 
-
     /**
      * 
      * 
      * 
      * @param airportId The airport's unique identifier
-     * @param IATACode The IATA code of the airport
+     * @param IATACode  The IATA code of the airport
      * @return The method is returning an Airport object.
      */
     public Airport generateAirportByIATAC(String airportId, String IATACode) throws NumberFormatException, IOException {
@@ -176,19 +178,25 @@ public class PathFinder {
     // A breadth first search algorithm that is used to find the shortest path
     // between two airports.
 
-    public Vertex uniformDistanceSearch() throws IOException {
+    public Vertex optimalPathSearchByAstar() throws IOException {
 
-        Airport startAirport = getStartEndAirport()[0];
-        Airport endAirport = getStartEndAirport()[1];
-        Vertex node = new Vertex(startAirport, null, null, 0);
-     
+       
+        // Creating a new imaginary route object and then calling the calRouteCost
+        // method on it to get the overall distance between the start city and the
+        // destination city for pre distance estiation for Astar search.
+        Route mainRoute = new Route(this.routeSearcher.getHomeAirport(), this.routeSearcher.getDestinationAirport());
+        mainRoute.calRouteCost();
+        
+        Airport endAirport = this.routeSearcher.getDestinationAirport();
+        Vertex node = new Vertex(this.routeSearcher.getHomeAirport(), null, null, 0);
+
         PriorityQueue<Vertex> frontier = new PriorityQueue<Vertex>(new VertexComparator());
         frontier.add(node);
         Set<Vertex> explored = new HashSet<Vertex>();
 
         while (!frontier.isEmpty()) {
             node = frontier.poll();
-           
+
             if (node.getCurrentVertex().getCity().equals(endAirport.getCity())) {
                 System.out.println("Found solution !!");
                 node.getPathToDestination();
@@ -203,30 +211,13 @@ public class PathFinder {
             for (Route route : results.keySet()) {
 
                 Vertex neighbor = new Vertex(results.get(route), node, route,
-                        node.getDistance() + route.getRoutecost());
+                        node.getDistance() + route.getRoutecost() + mainRoute.getRoutecost());
 
                 if (neighbor.getCurrentVertex() != null && !explored.contains(neighbor)
                         && !frontier.contains(neighbor)) {
                     frontier.add(neighbor);
                 }
 
-                else if (neighbor.getCurrentVertex() != null && frontier.contains(neighbor)) {
-                    Iterator<Vertex> it = frontier.iterator();
-
-                    while (it.hasNext()) {
-                        Vertex front = it.next();
-                        if (front.equals(neighbor)
-                                && neighbor.compareTo(front) > 0) {
-                            frontier.remove(front);
-                            frontier.add(neighbor);
-                            System.out.println("hit");
-                            return front;
-
-                            // System.out.println("Value: " + it.next());
-
-                        }
-                    }
-                }
             }
         }
 
@@ -262,8 +253,9 @@ public class PathFinder {
                         node.getDistance() + route.getRoutecost()); // System.out.println("neighbor: " +
                                                                     // neighbor.currentVertex);
                 // if (neighbor.getCurrentVertex() == null) {
-                //     System.out.println("Sorry there was no route for the given start city and destination city");
-                //     // return null;
+                // System.out.println("Sorry there was no route for the given start city and
+                // destination city");
+                // // return null;
                 // }
                 if (neighbor.getCurrentVertex() != null && !explored.contains(neighbor)
                         && !frontier.contains(neighbor)) {
@@ -300,3 +292,22 @@ public class PathFinder {
 
     }
 }
+
+// else if (neighbor.getCurrentVertex() != null && frontier.contains(neighbor))
+// {
+// Iterator<Vertex> it = frontier.iterator();
+
+// while (it.hasNext()) {
+// Vertex front = it.next();
+// if (front.equals(neighbor)
+// && neighbor.compareTo(front) > 0) {
+// frontier.remove(front);
+// frontier.add(neighbor);
+// System.out.println("hit");
+// return front;
+
+// // System.out.println("Value: " + it.next());
+
+// }
+// }
+// }
