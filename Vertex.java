@@ -1,3 +1,13 @@
+/**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

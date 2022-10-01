@@ -1,0 +1,7 @@
+1. AH from GHA to ALG 0 stops
+2. AH from ALG to OUA 0 stops
+3. 2J from OUA to ACC 0 stops
+Total Flights: 3
+Total additional stops: 0
+Total distance: 8231.768193667152
+Optimality criteria:  distance in km

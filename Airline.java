@@ -1,4 +1,14 @@
 /**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
+
+/**
  * This class is used to store the data of an airline
  */
 public class Airline {

@@ -1,3 +1,13 @@
+/**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
+
 import java.util.Comparator;
 
 public class VertexComparator implements Comparator<Vertex> {

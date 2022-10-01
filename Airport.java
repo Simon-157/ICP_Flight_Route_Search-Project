@@ -1,3 +1,13 @@
+/**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +18,9 @@ public class Airport {
     private String airportName;
     private String city;
     private String country;
+/**
+ * A class that searches for flight routes.
+ */
     private String IATACdode;
     private String ICAOCode;
     private double latitude;

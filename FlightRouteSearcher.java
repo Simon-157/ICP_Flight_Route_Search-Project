@@ -1,9 +1,13 @@
 /**
- * // Java
- * public class FlightRouteSearcher {
- *     // Searches for flight routes.
- * }
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
  */
+
+
 public class FlightRouteSearcher {
     private String startCity;
     private String startCountry;

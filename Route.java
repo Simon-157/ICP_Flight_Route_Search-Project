@@ -1,4 +1,15 @@
 /**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
+
+
+/**
  * The Route class is a POJO that contains the data for a single route.
  */
 public class Route {

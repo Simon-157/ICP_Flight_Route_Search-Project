@@ -1,3 +1,12 @@
+/**
+ * 
+ * 
+ * @author Simon Junior Boateng
+ * 
+ * @since Version 1.1
+ *
+ */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -315,7 +324,6 @@ public class PathFinder {
                 }
                 Vertex neighbor = new Vertex(results.get(route), node, route); // System.out.println("neighbor:
 
-                
                 if (neighbor.getCurrentVertex() != null && !explored.contains(neighbor)
                         && !frontier.contains(neighbor)) {
                     if (neighbor.getCurrentVertex().getCity().equals(endAirport.getCity())) {
@@ -338,12 +346,12 @@ public class PathFinder {
     }
 
     public static void main(String[] args) {
-        PathFinder test1 = new PathFinder("accra-winnepeg.txt");
+        PathFinder test1 = new PathFinder("ghardaia_accra.txt");
         test1.readInputFile();
         try {
             test1.getStartEndAirport();
-            // test1.optimalPathSearchByAstar();
-            test1.breadthFirstSearch();
+            test1.optimalPathSearchByAstar();
+            // test1.breadthFirstSearch();
         } catch (IOException e) {
             e.printStackTrace();
         }
