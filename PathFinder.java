@@ -65,7 +65,7 @@ public class PathFinder {
         // as the ones in the
         // input file.
         while ((row = reader.readLine()) != null) {
-            String[] data = row.split(",");
+            String[] data = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
             // System.out.println(data[2].trim());
             if (data[2].trim().equals(this.routeSearcher.getStartCity())
                     && data[3].trim().equals(this.routeSearcher.getStartCountry())) {
@@ -104,26 +104,25 @@ public class PathFinder {
     public Airport generateAirportByIATAC(String airportId, String IATACode) throws NumberFormatException, IOException {
         // Airport newAirport;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("airports.csv"))) {
-            String row;
-            // Reading the csv file and checking if the a line has city and country the same
-            // as the ones in the
-            // input file.
-            while ((row = reader.readLine()) != null) {
-                String[] data = row.split(",");
+        BufferedReader reader = new BufferedReader(new FileReader("airports.csv"));
+        String row;
+        // Reading the csv file and checking if the a line has city and country the same
+        // as the ones in the
+        // input file.
+        while ((row = reader.readLine()) != null) {
+            String[] data = row.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if ((airportId.equals(data[0]) && (IATACode.equals(data[5])
-                        || IATACode.equals(data[4])))) {
-                    Airport newAirport = new Airport(data[0], data[1], data[2], data[3], data[4], data[5],
-                            Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]));
-                    // System.out.println("Hit hit hit ");
-                    return newAirport;
-                }
-
+            if ((airportId.equals(data[0]) || (IATACode.equals(data[4])
+                    || IATACode.equals(data[4])))) {
+                Airport newAirport = new Airport(data[0], data[1], data[2], data[3], data[4], data[5],
+                        Double.parseDouble(data[6]), Double.parseDouble(data[7]), Double.parseDouble(data[8]));
+                // System.out.println("Hit hit hit ");
+                return newAirport;
             }
+
             // System.out.println(newAirport);
-            reader.close();
         }
+        reader.close();
         return null;
     }
 
@@ -145,8 +144,7 @@ public class PathFinder {
         while ((row = reader.readLine()) != null) {
             String[] data = row.split(",");
 
-            if (data[3].equals(airport.getAirportId()) && (data[2].equals(airport.getIATACdode())
-                    || data[2].equals(airport.getICAOCode()))) {
+            if (data[2].equals(airport.getIATACdode())) {
                 Route newRoute = new Route(data[0], data[1], data[2], data[3], data[4], data[5],
                         data[6], data[7]);
                 routes.add(newRoute);
@@ -160,13 +158,7 @@ public class PathFinder {
                         newRoute.getSourceAirport());
                 newRoute.setDestination(generatedAirport);
                 newRoute.setSource(sourceAirport);
-                try {
 
-                    newRoute.calRouteCost();
-                } catch (NullPointerException e) {
-                    e.getMessage();
-
-                }
                 // neighborAirports.add(this.generateAirportByIATAC(newRoute));
                 neighbors.put(newRoute, generatedAirport);
             }
@@ -178,17 +170,18 @@ public class PathFinder {
 
     }
 
-   /**
-    * The function takes in two sets of coordinates (latitude and longitude) and returns the distance
-    * between them in miles
-    * 
-    * @param lat1 Latitude of point 1 (in decimal degrees)
-    * @param lon1 longitude of the first point
-    * @param lat2 latitude of the second point
-    * @param lon2 longitude of the destination
-    * @param unit The unit you desire for results.
-    * @return The distance between two points.
-    */
+    /**
+     * The function takes in two sets of coordinates (latitude and longitude) and
+     * returns the distance
+     * between them in miles
+     * 
+     * @param lat1 Latitude of point 1 (in decimal degrees)
+     * @param lon1 longitude of the first point
+     * @param lat2 latitude of the second point
+     * @param lon2 longitude of the destination
+     * @param unit The unit you desire for results.
+     * @return The distance between two points.
+     */
     private double calcDistance(double lat1, double lon1, double lat2, double lon2, char unit) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
@@ -204,7 +197,6 @@ public class PathFinder {
         return (dist);
     }
 
-   
     /**
      * Convert degrees to radians
      * 
@@ -215,12 +207,12 @@ public class PathFinder {
         return (deg * Math.PI / 180.0);
     }
 
-   /**
-    * Converts radians to degrees.
-    * 
-    * @param rad The radian value to be converted to degrees.
-    * @return The distance between two points on the Earth.
-    */
+    /**
+     * Converts radians to degrees.
+     * 
+     * @param rad The radian value to be converted to degrees.
+     * @return The distance between two points on the Earth.
+     */
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
@@ -229,23 +221,29 @@ public class PathFinder {
     // A method that is used to find the optimal path using A* algorithm.
     public Vertex optimalPathSearchByAstar() throws IOException {
 
-        PriorityQueue<Vertex> frontier = new PriorityQueue<Vertex>((node, node2) -> {
-            if (node.getDistance() < node2.getDistance()) {
-                return 1;
-            } else if (node.getDistance() > node2.getDistance()) {
+        PriorityQueue<Vertex> frontier = new PriorityQueue<Vertex>((vertexCur, vertexPrev) -> {
+            if (vertexCur.getDistance() < vertexPrev.getDistance()) {
                 return -1;
+            } else if (vertexCur.getDistance() > vertexPrev.getDistance()) {
+                return 1;
             } else {
                 return 0;
             }
         });
 
         Airport endAirport = this.routeSearcher.getDestinationAirport();
-        Vertex node = new Vertex(this.routeSearcher.getHomeAirport(), null, null);
+        Airport startAirport = this.routeSearcher.getHomeAirport();
+        if (startAirport == null || endAirport == null) {
+            System.out.println("start city or end city does not exit ");
+            return null;
+        }
+        Vertex node = new Vertex(startAirport, null, null);
         frontier.add(node);
         HashSet<String> explored = new HashSet<String>();
 
         while (!frontier.isEmpty()) {
             node = frontier.poll();
+            explored.add(node.getCurrentVertex().getIATACdode());
             if (node.getCurrentVertex().getIATACdode().equals(endAirport.getIATACdode())) {
                 System.out.println("Found solution !!");
                 // node.getPathToDestination();
@@ -253,14 +251,13 @@ public class PathFinder {
                         this.inputFile.getName().substring(0, this.inputFile.getName().lastIndexOf('.')));
                 return node;
             }
-            explored.add(node.getCurrentVertex().getIATACdode());
             // System.out.println("Explored: " + explored);
             HashMap<Route, Airport> results = getAirportNeighbors(node.getCurrentVertex());
             for (Route route : results.keySet()) {
                 if (results.get(route) != null) {
                     Airport routeDestination = results.get(route);
-                    double pathcost = calcDistance(routeDestination.getLatitude(), routeDestination.getLongitutde(),
-                            node.getCurrentVertex().getLatitude(), node.getCurrentVertex().getLongitutde(), 'K')
+                    Double pathcost = calcDistance(routeDestination.getLatitude(), routeDestination.getLongitutde(),
+                            endAirport.getLatitude(), endAirport.getLongitutde(), 'K')
                             + calcDistance(node.getCurrentVertex().getLatitude(),
                                     node.getCurrentVertex().getLongitutde(),
                                     routeDestination.getLatitude(), routeDestination.getLongitutde(), 'K');
@@ -293,7 +290,7 @@ public class PathFinder {
 
         Airport startAirport = getStartEndAirport()[0];
         Airport endAirport = getStartEndAirport()[1];
-        if(startAirport == null || endAirport == null){
+        if (startAirport == null || endAirport == null) {
             System.out.println("start city or end city does not exit ");
             return null;
         }
@@ -318,18 +315,13 @@ public class PathFinder {
                 }
                 Vertex neighbor = new Vertex(results.get(route), node, route); // System.out.println("neighbor:
 
-                // neighbor.currentVertex);
-                // if (neighbor.getCurrentVertex() == null) {
-                // System.out.println("Sorry there was no route for the given start city and
-                // destination city");
-                // // return null;
-                // }
+                
                 if (neighbor.getCurrentVertex() != null && !explored.contains(neighbor)
                         && !frontier.contains(neighbor)) {
                     if (neighbor.getCurrentVertex().getCity().equals(endAirport.getCity())) {
                         System.out.println("Found solution !!");
                         neighbor.getPathToDestination();
-                        neighbor.writeOutputPathToFile(
+                        neighbor.writeOutputPathToFileForBFS(
                                 this.inputFile.getName().substring(0,
                                         this.inputFile.getName().lastIndexOf('.')));
 
@@ -352,9 +344,7 @@ public class PathFinder {
             test1.getStartEndAirport();
             // test1.optimalPathSearchByAstar();
             test1.breadthFirstSearch();
-            // writeOutputPathToFile(test1.inputFile);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

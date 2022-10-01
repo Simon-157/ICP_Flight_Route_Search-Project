@@ -7,10 +7,11 @@ This is program that takes in a start position on any part of the earth geograph
 ## Running Tests/Demo
 All you need is an iput file with the ## start city and country and the ## destination city and country .
 To run tests, run the following command, 
-* Change the parameter of the constructor of the test1 object to the name
-the file of the input file. or 
+* Change the parameter of the constructor of the test1 object to the name the input file.  
+# OR 
 * create an object of the PathFinder class and
 * pass the name of the input file as a parameter to the constructor
+* call the readInputFile method on the object
 * to get the optimal path, call the optimalPathSearchByAstar method on the object of the PathFinder
 * to get a valid path, call the breadthFirstSearch method on the object PathFinder.
 * Make sure the Input file is present in the current directory, i.e cd flight-route-finding 

@@ -1,4 +1,7 @@
-S9 from TKD to ACC 0 stops
-BA from ACC to LHR 0 stops
-Total Flights: 2
+1. DL from ACC to JFK 0 stops
+2. SY from JFK to MSP 0 stops
+3. DL from MSP to YWG 0 stops
+Total Flights: 3
 Total additional stops: 0
+Total distance: 13235.569558129911
+Optimality criteria:  distance in km
