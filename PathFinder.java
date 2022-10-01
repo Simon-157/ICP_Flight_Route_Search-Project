@@ -346,7 +346,7 @@ public class PathFinder {
     }
 
     public static void main(String[] args) {
-        PathFinder test1 = new PathFinder("ghardaia_accra.txt");
+        PathFinder test1 = new PathFinder("ghardaia-accra.txt");
         test1.readInputFile();
         try {
             test1.getStartEndAirport();
