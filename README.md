@@ -1,15 +1,19 @@
 
 # Flight Route Searching With A*Search and Breadth First Search
 
-This is a project that takes in a start position on the any part of the earth geographical area and searches for an optimal path to a given destination in the globe through flight
+This is program that takes in a start position on any part of the earth geographical area and searches for an optimal path to a given destination in the globe through flight with distance optimality( for A*) and number of flights( for BFS)
 
 
 ## Running Tests/Demo
-
+All you need is an iput file with the ## start city and country and the ## destination city and country .
 To run tests, run the following command, 
 * Change the parameter of the constructor of the test1 object to the name
-the file of the input file.
-* Make sure the Input file is present in the current directory, i.e cd flight-route-finding
+the file of the input file. or 
+* create an object of the PathFinder class and
+* pass the name of the input file as a parameter to the constructor
+* to get the optimal path, call the optimalPathSearchByAstar method on the object of the PathFinder
+* to get a valid path, call the breadthFirstSearch method on the object PathFinder.
+* Make sure the Input file is present in the current directory, i.e cd flight-route-finding 
 
 ```bash
      public static void main(String[] args) {
@@ -17,9 +21,9 @@ the file of the input file.
         test1.readInputFile();
         try {
             test1.getStartEndAirport();
-            // test1.optimalPathSearchByAstar();
-            test1.breadthFirstSearch();
-            // writeOutputPathToFile(test1.inputFile);
+            test1.optimalPathSearchByAstar();
+           // test1.breadthFirstSearch();
+           
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
