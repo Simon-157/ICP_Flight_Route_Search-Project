@@ -119,7 +119,7 @@ public class Vertex{
             
         }
         f_writer.write("Total Flights: " + (this.getPathToDestination().size()-1) + "\n");
-        f_writer.write("Total additional stops: "  + this.route.getStops() + "\n");
+        f_writer.write("Total additional stops: "  + this.getStops() + "\n");
         f_writer.write("Total distance: "  + this.getDistance() + "\n");
         f_writer.write("Optimality criteria:  distance in km");
 
@@ -154,7 +154,7 @@ public class Vertex{
             
         }
         f_writer.write("Total Flights: " + (this.getPathToDestination().size()-1) + "\n");
-        f_writer.write("Total additional stops: "  + this.route.getStops() + "\n");
+        f_writer.write("Total additional stops: "  + this.getStops() + "\n");
         f_writer.write("Optimality criteria:  number of flights");
 
 
